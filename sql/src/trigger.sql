@@ -1,0 +1,18 @@
+/*#Group 24:
+#Shreya Godishala-862313765
+#Shubham Sharma- 862253820
+*/
+CREATE LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION func()
+RETURNS "trigger" AS
+$BODY$
+BEGIN
+NEW.msgId := nextval('msgId_seq');
+RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER msgId_trigger BEFORE INSERT
+ON MESSAGE FOR EACH ROW
+EXECUTE PROCEDURE func();
